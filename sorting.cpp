@@ -288,6 +288,9 @@ int main()
     int arr[n];
     for(int i=0;i<n;i++)cin>>arr[i];
     sorting_algos s1(n,arr);
+    //Uncomment the below code to see working
+    //of sorting algorithms
+    
     // s1.bubble_sort();
     // s1.selection_sort();
     // s1.insertion_sort();
