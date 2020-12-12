@@ -9,6 +9,7 @@
 ********************************************************/
 
 #include<bits/stdc++.h>
+#include <chrono> 
 using namespace std;
 class sorting_algos{
     private:
@@ -171,7 +172,10 @@ class sorting_algos{
         cout<<"Please call parameterized constructor";
     }
 
-    //Code for bubble sort
+    /***************************************
+     * Code for bubble sort
+     * Time Complexity O(N^2)
+    ***************************************/
     void bubble_sort()
     {
         for(int i=0;i<len-1;i++)
@@ -186,7 +190,10 @@ class sorting_algos{
         }
     }
 
-    //code for selection sort
+    /***************************************
+     * Code for Selection sort
+     * Time Complexity O(N^2)
+    ***************************************/
     void selection_sort()
     {
         int min;
@@ -204,7 +211,11 @@ class sorting_algos{
         }
     }
 
-    //code for insertion sort
+    /***************************************
+     * Code for Insertion sort
+     * Time Complexity Average Case O(N^2)
+     * Best Case O(N)
+    ***************************************/
     void insertion_sort()
     {
         for(int i=0;i<len;i++)
@@ -228,7 +239,10 @@ class sorting_algos{
         
     }
 
-    //code for heap sort
+    /***************************************
+     * Code for Heap sort
+     * Time Complexity O(N^logN)
+    ***************************************/
     void heap_sort()
     {
         //this uses a helper function create heap for creating heap
@@ -241,7 +255,10 @@ class sorting_algos{
         
     }
 
-    //code for mergesort
+    /***************************************
+     * Code for Merge  sort
+     * Time Complexity O(N^logN)
+    ***************************************/
     void merge_sort(int l,int r)
     {
         if(l>=r)
@@ -260,7 +277,11 @@ class sorting_algos{
         
     }
 
-    //code for quicksort
+    /***************************************
+     * Code for bubble sort
+     * Time Complexity worst case O(N^2)
+     * Time Complexity Average case O(NlogN)
+    ***************************************/
     void quick_sort(int low,int high)
     {
         if(low<high)
@@ -271,8 +292,10 @@ class sorting_algos{
         }
     }
 
-    //print_arr method used to print the array
-    //this will print the array space seperated 
+    /***************************************
+     * Code for Printing Array
+     * This function prints array in space separated manner
+    ***************************************/
     void print_arr()
     {
         for(int i=0;i<len;i++)
@@ -288,14 +311,14 @@ int main()
     int arr[n];
     for(int i=0;i<n;i++)cin>>arr[i];
     sorting_algos s1(n,arr);
-    //Uncomment the below code to see working
-    //of sorting algorithms
     
-    // s1.bubble_sort();
+    //Uncomment the code to see
+    s1.bubble_sort();
     // s1.selection_sort();
     // s1.insertion_sort();
     // s1.heap_sort();
     // s1.merge_sort(0,n-1);
     // s1.quick_sort(0,n);
-    // s1.print_arr();
+    s1.print_arr();
+    
 }
