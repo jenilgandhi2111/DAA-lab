@@ -38,23 +38,42 @@ Person       | 2    6   4   3   7
              V 4    7   6   9   4
    
    Answer:          2+3+5+4=14
+ 
+ * How to test:
+    -> Put all your testcases in 01_input.txt
+    -> Output would be in 01_output.txt
 ************************************************************/
 #include<bits/stdc++.h>
 using namespace std;
-int calc_lower_bound(vector<vector<int>> space,int from,vector<int> taken)
+void c_p_c()
 {
+    //functions for fast I/O
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("01_input.txt", "r", stdin);
+    freopen("01_output.txt", "w", stdout);
+#endif
+}
+int calc_lower_bound(vector<vector<int>> space,int from,vector<int> taken,map<int,bool> assigned)
+{
+    
     int lb=0;
     for(int i=0;i<from;i++)
     {
+        
         lb+=space[i][taken[i]];
     }
+    
     for(int i=from;i<taken.size();i++)
     {
         int min=INT_MAX;
+        
         for(int j=0;j<taken.size();j++)
         {
             
-            if(space[i][j]<min)
+            if(space[i][j]<min && assigned[j]==false)
             {
                 min=space[i][j];
             }
@@ -62,21 +81,23 @@ int calc_lower_bound(vector<vector<int>> space,int from,vector<int> taken)
         
         lb+=min;
     }
+    
     return lb;
 
 }
 void solve_job_assgn(vector<vector<int>> space,vector<int> taken,int level,map<int,bool> jobs_taken)
 {
+    map<int,bool> copy=jobs_taken;
     if(level==taken.size())
     {
         // return base condition
-        
+        	
         int min_cost=0;
         for(int i=0;i<taken.size();i++)
         {
             min_cost+=space[i][taken[i]];
         }
-        cout<<"Min cost: "<<min_cost;
+        cout<<"Min:"<<min_cost<<endl;
         return;
     }
     int min=INT_MAX;
@@ -86,31 +107,40 @@ void solve_job_assgn(vector<vector<int>> space,vector<int> taken,int level,map<i
     {
         if(jobs_taken[i]==false)
         {
+            copy[i]=true;
             taken[level]=i;
-            int tmp=calc_lower_bound(space,level+1,taken);
+            int tmp=calc_lower_bound(space,level+1,taken,copy);
             if(tmp<min)
             {
                 min=tmp;
                 min_index=i;
                 min_vec=taken;
             }
+            copy[i]=false;
+        
         }
     }
     jobs_taken[min_index]=true;
-    taken[level]=min_index;
+    taken=min_vec;
+    
     solve_job_assgn(space,taken,level+1,jobs_taken);
 }
 int main()
 {
+    c_p_c();
     int tt;
     cin>>tt;
+    int cntr=1;
+    cout<<"----------------------------------\n";
     while(tt--)
     {
+        cout<<"Case#"<<cntr<<" ";
+        cntr++;
         int jobs;
         cin>>jobs;
        vector<vector<int>> v;
        vector<int> taken;
-    //    {{9,2,7,8},{6,4,3,7},{5,8,1,8},{7,6,9,4}};
+   
        for(int i=0;i<jobs;i++)
        {
            vector<int> tmp;
@@ -120,13 +150,12 @@ int main()
                int temp;
                cin>>temp;
                tmp.push_back(temp);
-            //    cout<<v[i][j]<<" ";
            }
            v.push_back(tmp);
-        //    cout<<endl;
        }
        
        map<int,bool> jobs_taken;
        solve_job_assgn(v,taken,0,jobs_taken);
+        cout<<"----------------------------------\n";
     }
 }
